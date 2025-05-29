@@ -1,10 +1,10 @@
 import { ClientEntity } from '../../domain/entities/ClientEntity';
-import { ClientRepository } from '../../infra/database/mongodb/ClientRepository';
+import { IClientRepository } from '../protocols/IClientRepository';
 import { IMessagePublisher } from '../protocols/IMessagePublisher';
 
 export class CreateClientUseCase {
   constructor(
-    private repository: ClientRepository,
+    private repository: IClientRepository,
     private publisher: IMessagePublisher
   ) { }
 
