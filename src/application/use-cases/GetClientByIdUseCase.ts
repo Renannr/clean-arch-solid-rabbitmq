@@ -11,9 +11,12 @@ export class GetClientByIdUseCase {
     if (cached) return JSON.parse(cached);
 
     const cliente = await this.repository.findById(id);
-    if (cliente) {
-      await redis.set(cacheKey, JSON.stringify(cliente));
+
+    if (!cliente) {
+      throw new Error('Cliente não encontrado');
     }
+
+    await redis.set(cacheKey, JSON.stringify(cliente));
 
     return cliente;
   }

@@ -9,11 +9,15 @@ export class CreateClientUseCase {
   ) { }
 
   async execute(data: { name: string; email: string; phone: string }) {
-    const cliente = new ClientEntity(data.name, data.email, data.phone);
-    const created = await this.repository.create(cliente);
+    try {
+      const cliente = new ClientEntity(data.name, data.email, data.phone);
+      const created = await this.repository.create(cliente);
 
-    await this.publisher.publish('cliente_cadastrado', created);
+      await this.publisher.publish('cliente_cadastrado', created);
 
-    return created;
+      return created;
+    } catch (error) {
+      throw error;
+    }
   }
 }

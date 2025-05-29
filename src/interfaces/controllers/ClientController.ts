@@ -39,8 +39,13 @@ export class ClientController {
         return res.status(404).json({ error: 'Cliente não encontrado' });
       }
       return res.status(200).json(client);
-    } catch (error) {
+    } catch (error: unknown) {
+
       console.error('[GetClientById] Erro:', error);
+      if (error instanceof Error && error.message === 'Cliente não encontrado') {
+        return res.status(404).json({ error: error.message });
+      }
+
       return res.status(400).json({ error: 'Erro ao buscar cliente' });
     }
   }
@@ -49,8 +54,11 @@ export class ClientController {
     try {
       const updated = await this.updateClientUseCase.execute(req.params.id, req.body);
       return res.status(200).json(updated);
-    } catch (error) {
+    } catch (error: unknown) {
       console.error('[UpdateClient] Erro:', error);
+      if (error instanceof Error && error.message === 'Cliente não encontrado') {
+        return res.status(404).json({ error: error.message });
+      }
       return res.status(400).json({ error: 'Erro ao atualizar cliente' });
     }
   }
