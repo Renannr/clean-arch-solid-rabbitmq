@@ -6,8 +6,8 @@ import { IMessagePublisher } from '../protocols/IMessagePublisher';
 export class CreateClientUseCase {
   constructor(
     private repository: IClientRepository,
-    private publisher: IMessagePublisher
-  ) { }
+    private publisher: IMessagePublisher,
+  ) {}
 
   async execute(data: { name: string; email: string; phone: string }) {
     try {

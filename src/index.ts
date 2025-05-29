@@ -10,7 +10,8 @@ async function main() {
   await database.connect();
   const PORT = parseInt(process.env.PORT || '3000');
 
-  redis.ping()
+  redis
+    .ping()
     .then(() => console.log('\n \t Redis Conectado com sucesso'))
     .catch((err) => console.error('Erro ao conectar:', err));
 

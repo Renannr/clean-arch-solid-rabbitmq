@@ -4,7 +4,9 @@ import { IMessagePublisher } from '../../application/protocols/IMessagePublisher
 export class RabbitMQPublisher implements IMessagePublisher {
   async publish(queue: string, message: unknown): Promise<void> {
     try {
-      const connection = await amqp.connect(process.env.RABBITMQ_URL || 'amqp://localhost');
+      const connection = await amqp.connect(
+        process.env.RABBITMQ_URL || 'amqp://localhost',
+      );
       const channel = await connection.createChannel();
 
       await channel.assertQueue(queue, { durable: true });

@@ -2,7 +2,7 @@ import { redis } from '../../infra/cache/RedisClient';
 import { IClientRepository } from '../protocols/IClientRepository';
 
 export class GetClientByIdUseCase {
-  constructor(private repository: IClientRepository) { }
+  constructor(private repository: IClientRepository) {}
 
   async execute(id: string) {
     const cacheKey = `cliente:${id}`;

@@ -18,8 +18,13 @@ export class ClientRepository implements IClientRepository {
     return client ? client.toObject() : null;
   }
 
-  async update(id: string, data: Partial<ClientEntity>): Promise<ClientEntity | null> {
-    const updated = await ClientModel.findByIdAndUpdate(id, data, { new: true });
+  async update(
+    id: string,
+    data: Partial<ClientEntity>,
+  ): Promise<ClientEntity | null> {
+    const updated = await ClientModel.findByIdAndUpdate(id, data, {
+      new: true,
+    });
     return updated ? updated.toObject() : null;
   }
 }

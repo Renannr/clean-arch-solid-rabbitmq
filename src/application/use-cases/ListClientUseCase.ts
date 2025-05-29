@@ -2,7 +2,7 @@ import { redis } from '../../infra/cache/RedisClient';
 import { IClientRepository } from '../protocols/IClientRepository';
 
 export class ListClientsUseCase {
-  constructor(private repository: IClientRepository) { }
+  constructor(private repository: IClientRepository) {}
 
   async execute() {
     const cacheKey = 'clientes:all';

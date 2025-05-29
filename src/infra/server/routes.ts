@@ -16,7 +16,7 @@ const clientController = new ClientController(
   new CreateClientUseCase(repo, publisher),
   new ListClientsUseCase(repo),
   new GetClientByIdUseCase(repo),
-  new UpdateClientUseCase(repo)
+  new UpdateClientUseCase(repo),
 );
 
 router.get('/health', (_, res: Response) => {
@@ -24,9 +24,17 @@ router.get('/health', (_, res: Response) => {
 });
 
 router
-  .post('/clientes', (req: Request, res: Response) => { clientController.create(req, res) })
-  .get('/clientes', (req: Request, res: Response) => { clientController.findAll(req, res) })
-  .get('/clientes/:id', (req: Request, res: Response) => { clientController.findById(req, res) })
-  .put('/clientes/:id', (req: Request, res: Response) => { clientController.update(req, res) })
+  .post('/clientes', (req: Request, res: Response) => {
+    clientController.create(req, res);
+  })
+  .get('/clientes', (req: Request, res: Response) => {
+    clientController.findAll(req, res);
+  })
+  .get('/clientes/:id', (req: Request, res: Response) => {
+    clientController.findById(req, res);
+  })
+  .put('/clientes/:id', (req: Request, res: Response) => {
+    clientController.update(req, res);
+  });
 
 export default router;

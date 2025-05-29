@@ -6,8 +6,8 @@ jest.mock('../../src/infra/database/mongodb/schemas/ClientSchema', () => ({
     create: jest.fn(),
     find: jest.fn(),
     findById: jest.fn(),
-    findByIdAndUpdate: jest.fn()
-  }
+    findByIdAndUpdate: jest.fn(),
+  },
 }));
 
 describe('ClientRepository (mocked)', () => {
@@ -23,7 +23,7 @@ describe('ClientRepository (mocked)', () => {
     const fakeCreated = {
       ...data,
       id: '123',
-      toObject: () => ({ ...data, id: '123' })
+      toObject: () => ({ ...data, id: '123' }),
     };
 
     (ClientModel.create as jest.Mock).mockResolvedValue(fakeCreated);
@@ -39,7 +39,12 @@ describe('ClientRepository (mocked)', () => {
       name: 'ana',
       email: 'ana@email.com',
       phone: '9876',
-      toObject: () => ({ name: 'ana', email: 'ana@email.com', phone: '9876', id: '1' })
+      toObject: () => ({
+        name: 'ana',
+        email: 'ana@email.com',
+        phone: '9876',
+        id: '1',
+      }),
     };
 
     (ClientModel.findById as jest.Mock).mockResolvedValue(fakeClient);
@@ -47,7 +52,11 @@ describe('ClientRepository (mocked)', () => {
     const result = await repo.findById('1');
 
     expect(ClientModel.findById).toHaveBeenCalledWith('1');
-    expect(result).toMatchObject({ name: 'ana', email: 'ana@email.com', phone: '9876' });
+    expect(result).toMatchObject({
+      name: 'ana',
+      email: 'ana@email.com',
+      phone: '9876',
+    });
   });
 
   it('should call find and return an array of clients', async () => {
@@ -56,8 +65,13 @@ describe('ClientRepository (mocked)', () => {
         name: 'maria',
         email: 'maria@email.com',
         phone: '0000',
-        toObject: () => ({ name: 'maria', email: 'maria@email.com', phone: '0000', id: 'a1' })
-      }
+        toObject: () => ({
+          name: 'maria',
+          email: 'maria@email.com',
+          phone: '0000',
+          id: 'a1',
+        }),
+      },
     ];
 
     (ClientModel.find as jest.Mock).mockResolvedValue(mockClients);
@@ -65,12 +79,14 @@ describe('ClientRepository (mocked)', () => {
     const result = await repo.findAll();
 
     expect(ClientModel.find).toHaveBeenCalled();
-    expect(result).toEqual([{
-      name: 'maria',
-      email: 'maria@email.com',
-      phone: '0000',
-      id: 'a1'
-    }]);
+    expect(result).toEqual([
+      {
+        name: 'maria',
+        email: 'maria@email.com',
+        phone: '0000',
+        id: 'a1',
+      },
+    ]);
   });
 
   it('should call findByIdAndUpdate and return updated client', async () => {
@@ -79,14 +95,21 @@ describe('ClientRepository (mocked)', () => {
       name: 'novo nome',
       email: 'ana@email.com',
       phone: '9876',
-      toObject: () => ({ name: 'novo nome', email: 'ana@email.com', phone: '9876', id: '1' })
+      toObject: () => ({
+        name: 'novo nome',
+        email: 'ana@email.com',
+        phone: '9876',
+        id: '1',
+      }),
     };
 
     (ClientModel.findByIdAndUpdate as jest.Mock).mockResolvedValue(fakeUpdated);
 
     const result = await repo.update('1', updates);
 
-    expect(ClientModel.findByIdAndUpdate).toHaveBeenCalledWith('1', updates, { new: true });
+    expect(ClientModel.findByIdAndUpdate).toHaveBeenCalledWith('1', updates, {
+      new: true,
+    });
     expect(result).toMatchObject({ name: 'novo nome' });
   });
 });
