@@ -1,8 +1,9 @@
+import { ClientEntity } from '../../domain/entities/ClientEntity';
 import { redis } from '../../infra/cache/RedisClient';
-import { IClientRepository } from '../protocols/IClientRepository';
+import { BaseRepository } from '../../shared/repositories/BaseRepository';
 
 export class ListClientsUseCase {
-  constructor(private repository: IClientRepository) {}
+  constructor(private repository: BaseRepository<ClientEntity>,) { }
 
   async execute() {
     const cacheKey = 'clientes:all';

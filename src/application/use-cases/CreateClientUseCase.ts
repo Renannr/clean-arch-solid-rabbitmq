@@ -1,13 +1,13 @@
 import { ClientEntity } from '../../domain/entities/ClientEntity';
 import { redis } from '../../infra/cache/RedisClient';
-import { IClientRepository } from '../protocols/IClientRepository';
+import { BaseRepository } from '../../shared/repositories/BaseRepository';
 import { IMessagePublisher } from '../protocols/IMessagePublisher';
 
 export class CreateClientUseCase {
   constructor(
-    private repository: IClientRepository,
+    private repository: BaseRepository<ClientEntity>,
     private publisher: IMessagePublisher,
-  ) {}
+  ) { }
 
   async execute(data: { name: string; email: string; phone: string }) {
     try {

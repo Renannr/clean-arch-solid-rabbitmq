@@ -1,8 +1,8 @@
-import { IClientRepository } from '../../../application/protocols/IClientRepository';
 import { ClientEntity } from '../../../domain/entities/ClientEntity';
+import { BaseRepository } from '../../../shared/repositories/BaseRepository';
 import { ClientModel } from './schemas/ClientSchema';
 
-export class ClientRepository implements IClientRepository {
+export class ClientRepository implements BaseRepository<ClientEntity> {
   async create(data: ClientEntity): Promise<ClientEntity> {
     const created = await ClientModel.create(data);
     return created.toObject();

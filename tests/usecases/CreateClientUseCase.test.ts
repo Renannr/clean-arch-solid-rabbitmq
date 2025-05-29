@@ -1,8 +1,9 @@
-import { IClientRepository } from '../../src/application/protocols/IClientRepository';
 import { IMessagePublisher } from '../../src/application/protocols/IMessagePublisher';
 import { CreateClientUseCase } from '../../src/application/use-cases/CreateClientUseCase';
+import { ClientEntity } from '../../src/domain/entities/ClientEntity';
+import { BaseRepository } from '../../src/shared/repositories/BaseRepository';
 
-const mockRepo: IClientRepository = {
+const mockRepo: BaseRepository<ClientEntity> = {
   create: jest.fn(),
   findAll: jest.fn(),
   findById: jest.fn(),
