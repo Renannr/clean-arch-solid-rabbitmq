@@ -12,6 +12,7 @@ export class UpdateClientUseCase {
     }
 
     await redis.del(`cliente:${id}`);
+    await redis.del('clientes:all');
 
     return updated;
   }

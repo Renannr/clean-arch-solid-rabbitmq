@@ -1,4 +1,5 @@
 import { ClientEntity } from '../../domain/entities/ClientEntity';
+import { redis } from '../../infra/cache/RedisClient';
 import { IClientRepository } from '../protocols/IClientRepository';
 import { IMessagePublisher } from '../protocols/IMessagePublisher';
 
@@ -14,6 +15,8 @@ export class CreateClientUseCase {
       const created = await this.repository.create(cliente);
 
       await this.publisher.publish('cliente_cadastrado', created);
+
+      await redis.del('clientes:all');
 
       return created;
     } catch (error) {
