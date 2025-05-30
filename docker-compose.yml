@@ -1,27 +1,38 @@
+version: '3.9'
+
 services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - RABBITMQ_URL=amqp://rabbitmq
+      - MONGO_URL=mongodb://mongo:27017/clientes
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    depends_on:
+      - mongo
+      - redis
+      - rabbitmq
+
   mongo:
     image: mongo:6
     container_name: mongo
     ports:
-      - '27017:27017'
-    volumes:
-      - mongo-data:/data/db
+      - "27017:27017"
 
   redis:
     image: redis:7
     container_name: redis
     ports:
-      - '6379:6379'
+      - "6379:6379"
 
   rabbitmq:
     image: rabbitmq:3-management
     container_name: rabbitmq
     ports:
-      - '5672:5672'
-      - '15672:15672'
-    environment:
-      RABBITMQ_DEFAULT_USER: guest
-      RABBITMQ_DEFAULT_PASS: guest
-
-volumes:
-  mongo-data:
+      - "5672:5672"
+      - "15672:15672"
