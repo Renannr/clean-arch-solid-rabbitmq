@@ -19,7 +19,7 @@ async function main() {
     .then(() => console.log('\n \t Consumidor iniciado'))
     .catch((err) => console.error('Erro ao iniciar consumidor:', err));
 
-  app.listen(PORT, 'localhost', () => {
+  app.listen(PORT, '0.0.0.0', () => {
     console.log(`\n \t Servidor rodando na porta ${PORT}`);
   });
 }
