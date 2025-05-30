@@ -20,5 +20,6 @@ export async function startConsumer(queue: string): Promise<void> {
     });
   } catch (err) {
     console.error('Erro ao iniciar consumidor:', err);
+    throw err;
   }
 }
