@@ -66,13 +66,7 @@ cp .env.example .env
 ### 3. Suba as dependencias com Docker Compose
 
 ```bash
-docker-compose up
-```
-
-### 4. Inicie o projeto
-
-```bash
-npm run dev
+docker-compose up -d
 ```
 
 A API estará disponível em:
